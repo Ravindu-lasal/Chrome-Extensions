@@ -8,6 +8,83 @@
     <script src="jquery-3.7.1.min.js"></script>
     <script src="popup.js"></script>
 
+    <style>
+        /* Reset some default styles */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fb;
+  color: #333;
+  padding: 20px;
+  width: 300px; /* good size for Chrome popup */
+  box-sizing: border-box;
+}
+
+/* Title */
+h1 {
+  font-size: 20px;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+h2, h3 {
+  font-size: 14px;
+  margin: 8px 0;
+  color: #34495e;
+}
+
+/* Highlighted numbers */
+#total {
+  font-weight: bold;
+  color: #e74c3c; /* red */
+}
+
+#limit {
+  font-weight: bold;
+  color: #27ae60; /* green */
+}
+
+/* Input field */
+#amount {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+#amount:focus {
+  border-color: #3498db;
+}
+
+/* Button */
+#spendAmount {
+  width: 100%;
+  padding: 10px;
+  background: #3498db;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+#spendAmount:hover {
+  background: #2980b9;
+}
+
+/* Card-like container (optional) */
+body {
+  border-radius: 8px;
+}
+
+    </style>
+
 </head>
 <body>
     <h1>Budget Manger</h1>
