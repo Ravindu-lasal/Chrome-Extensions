@@ -16,5 +16,9 @@
 
   "options_page": "options.html",
 
-  "permissions": ["storage", "notifications"]
+  "background": {
+    "service_worker": "eventPage.js"
+   },
+
+  "permissions": ["storage", "notifications", "contextMenus"]
 }
