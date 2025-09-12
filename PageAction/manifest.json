@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "Page Font Styles Example",
+    "version": "1.0",
+    "description": "An example extension that applies custom font styles to web pages.",
+    "icons":{
+        "30": "icons/icon30.png",
+        "60": "icons/icon60.png",
+        "90": "icons/icon60.png"
+
+    },
+
+    "action": {
+        "default_icon": "icons/icon30.png",
+        "default_title": "Apply Font Styles",
+        "default_popup": "popup.html"
+    },
+
+    "background": {
+        "service_worker": "eventPage.js"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["https://developer.chrome.com/*"],
+            "js": ["content.js", "jquery-3.7.1.min.js"],
+            "css":["content.css"]
+        }
+    ],
+
+    "permissions": [
+        "tabs",
+        "contextMenus"
+        ],
+
+    "host_permissions": [
+        "https://developer.chrome.com/*"
+        ]
+
+    
+}
