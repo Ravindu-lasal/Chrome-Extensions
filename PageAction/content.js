@@ -1,10 +1,14 @@
 chrome.runtime.sendMessage({ todo: "showPageAction" });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log('Received message:', request);
     if (request.todo === "changeColor") {
-        var addColor = request.clicked_color;
-        console.log('Changing color to:', addColor);
-        $('.devsite-page-title').css('color', addColor + ' !important');
+        const addColor = request.clicked_color;
+        console.log('Changing all h1 tags to:', addColor);
+
+        document.querySelectorAll('h1').forEach(el => {
+            el.style.setProperty('color', addColor, 'important');
+        });
     }
 });
+
+

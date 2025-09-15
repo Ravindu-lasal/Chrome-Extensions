@@ -22,7 +22,7 @@
 
     "content_scripts": [
         {
-            "matches": ["https://developer.chrome.com/*"],
+            "matches": ["<all_urls>"],
             "js": ["content.js", "jquery-3.7.1.min.js"],
             "css":["content.css"]
         }
@@ -34,7 +34,7 @@
         ],
 
     "host_permissions": [
-        "https://developer.chrome.com/*"
+        "<all_urls>"
         ]
 
     
