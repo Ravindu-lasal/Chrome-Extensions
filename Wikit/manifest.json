@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Wikit",
+    "version": "1.0",
+    "description": "A simple and efficient Wikipedia reader extension.",
+    "icons": {
+        "24": "icons/w24.png",
+        "64": "icons/w64.png",
+        "128": "icons/w128.png"
+    },
+
+    "background": {
+        "service_worker": "background.js"
+    },
+
+    "permissions": [
+        "tabs",
+        "contextMenus",
+        "system.display"
+    ]
+}
