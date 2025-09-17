@@ -1,3 +1,4 @@
+import './style.css'
 
 document.getElementById('extractColorsBtn').addEventListener('click', () => {
 chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -14,9 +15,10 @@ function displayColors(colors){
     container.innerHTML = '';
     colors.forEach(color => {
         const swatch = document.createElement('div');
-        swatch.className = 'swatch';
+        swatch.className = 'w-20 h-20 rounded-md cursor-pointer border';
         swatch.style.backgroundColor = color;
         swatch.title = color;
+        swatch.textContent = color;
 
         swatch.addEventListener('click', () => {
             navigator.clipboard.writeText(color);

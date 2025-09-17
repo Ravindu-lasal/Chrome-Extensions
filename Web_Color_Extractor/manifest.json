@@ -1,0 +1,41 @@
+{
+    "name": "Web Color Extractor",
+    "description": "Extracts and displays colors from images on web pages.",
+    "version": "1.1",
+    "manifest_version": 3,
+    "icons": {
+        "24": "icons/c24.png",
+        "64": "icons/c64.png",
+        "128": "icons/c128.png"
+    },
+
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "sidePanel"
+    ],
+
+    "background": {
+        "service_worker": "background.js"
+    },
+
+    "side_panel": {
+        "default_path": "index.html",
+        "default_title": "Color Picker"
+    },
+
+    "action": {
+        "default_title": "Open Color Picker"
+    },
+
+    "host_permissions": [
+        "<all_urls>"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ]
+}
