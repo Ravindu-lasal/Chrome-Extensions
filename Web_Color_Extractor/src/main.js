@@ -6,6 +6,13 @@ const formatSelect = document.getElementById("format");
 document.getElementById("extractColorsBtn").addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, { action: "getColors" }, (response) => {
+      
+      if (chrome.runtime.lastError) {
+        console.log("⚠️ No content script found or site not supported:", chrome.runtime.lastError.message);
+        errorHandler();
+        return;
+      }
+      
       if (response && response.colors && response.url && response.backgroundColors) {
         console.log("Colors extracted from URL:", response.url);
         console.log("Text Colors:", response.colors);
@@ -13,10 +20,25 @@ document.getElementById("extractColorsBtn").addEventListener("click", () => {
         displayColors(response.colors );
         backColors(response.backgroundColors);
         updateUrl(response.url);
+      }else{
+        console.log("⚠️ Unexpected response format:", response);
       }
+
+
     });
   });
 });
+
+
+function errorHandler() {
+  const urlInput = document.getElementById("urlInput");
+  const container = document.getElementById("colors");
+  const backColors = document.getElementById("backcolors");
+  urlInput.textContent = "Not found url";
+  container.innerHTML = "";
+  backColors.innerHTML = "";
+  container.innerHTML = `<p class="text-red-500">No content script found or site not supported.: please reload site</p>`;
+}
 
 function updateUrl(url) {
   const urlInput = document.getElementById("urlInput");
@@ -134,3 +156,5 @@ function formatColor(color) {
     return color;
   }
 }
+
+
