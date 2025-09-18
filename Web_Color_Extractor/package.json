@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build && npm run copy-manifest",
-  "copy-manifest": "cp manifest.json dist/",
-  "preview": "vite preview"
+    "dev": "vite",
+    "build": "vite build && npm run copy-manifest",
+    "copy-manifest": "cp manifest.json dist/",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
@@ -16,6 +16,7 @@
     "vite": "^7.1.2"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.13"
+    "@tailwindcss/vite": "^4.1.13",
+    "color": "^5.0.2"
   }
 }

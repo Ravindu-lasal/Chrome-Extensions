@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/style.css" />
-    <title>Color Extractor</title>
-  </head>
-  <body
-    class="p-4 font-sans bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100"
-  >
-    <h2 class="text-2xl font-bold mb-4 text-black">🎨 Extracted Colors</h2>
-    <div class="flex items-center">
-      <button
-        type="button"
-        id="extractColorsBtn"
-        class="bg-red-500 hover:bg-red-600 text-white font-semibold m-2 py-2 px-4 rounded shadow cursor-pointer transition-colors duration-200"
-      >
-        Extract Colors
-      </button>
-      <div id="formatSelect" class="rounded shadow">
-        <select id="format" class="p-2 border border-gray-300 rounded">
-          <option value="rgb">RGB</option>
-          <option value="hex">Hex</option>
-          <option value="hsl">HSL</option>
-        </select>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <title>Color Extractor</title>
+</head>
+
+<body class="p-4 font-sans bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
+  <h2 class="text-2xl font-bold mb-4 text-black">🎨 Extracted Colors</h2>
+  <div class="flex items-center">
+    <button type="button" id="extractColorsBtn"
+      class="bg-red-500 hover:bg-red-600 text-white font-semibold m-2 py-2 px-4 rounded shadow cursor-pointer transition-colors duration-200">
+      Extract Colors
+    </button>
+    <div id="formatSelect" class="rounded shadow">
+      <select id="format" class="p-2 border border-gray-300 rounded">
+        <option value="rgb">RGB</option>
+        <option value="hex">Hex</option>
+        <option value="hsl">HSL</option>
+      </select>
     </div>
+  </div>
 
-    <div
-      id="colors"
-      class="flex flex-col gap-3 m-2 bg-white/80 p-4 rounded-lg shadow"
-    ></div>
+  
 
-    <script type="module" src="./src/main.js"></script>
-  </body>
+  <div id="colors" class="flex flex-col gap-3 m-2 bg-white/80 p-4 rounded-lg shadow">
+    <h2 class="text-lg font-bold mb-2">Text Colors</h2>
+    <p class="text-red-500">Not colors</p>
+  </div>
+  <div id="backcolors" class="flex flex-col gap-3 m-2 bg-white/80 p-4 rounded-lg shadow">
+    <h2 class="text-lg font-bold mb-2">Background Colors</h2>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+
 </html>
