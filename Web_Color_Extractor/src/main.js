@@ -1,9 +1,12 @@
 import "./style.css";
 import Color from "color";
-import convert from 'color-convert';
+import * as culori from 'culori';
 import { jsPDF } from "jspdf";
 
 const formatSelect = document.getElementById("format");
+document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+  generatePdf();
+});
 
 document.getElementById("extractColorsBtn").addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -24,11 +27,18 @@ document.getElementById("extractColorsBtn").addEventListener("click", () => {
         response.backgroundColors
       ) {
         console.log("Colors extracted from URL:", response.url);
-        console.log("Text Colors:", response.colors);
-        console.log("Background Colors:", response.backgroundColors);
-        allColors(response.colors, response.backgroundColors);
-        displayColors(response.colors);
-        backColors(response.backgroundColors);
+        console.log("Text Colors1:", response.colors);
+
+        // Convert colors to RGB
+        const colors = response.colors.map(toRGB);
+        const backgroundColors = response.backgroundColors.map(toRGB);
+
+        console.log("Text Colors:", colors);
+        console.log("Background Colors:", backgroundColors);
+
+        allColors(colors, backgroundColors);
+        displayColors(colors);
+        backColors(backgroundColors);
         updateUrl(response.url);
       } else {
         console.log("Unexpected response format:", response);
@@ -37,10 +47,40 @@ document.getElementById("extractColorsBtn").addEventListener("click", () => {
   });
 });
 
+  
+  function toRGB(color) {
+  try {
+    let formattedColor = color.trim();
 
-document.getElementById("downloadPdfBtn").addEventListener("click", () => {
-  generatePdf();
-});
+    // Normalize slash alpha: turn `oklab(... / a)` → `oklab(... a)`
+    if (formattedColor.startsWith('oklab(') && formattedColor.includes('/')) {
+      formattedColor = formattedColor.replace(/\s*\/\s*/, ' ');
+    }
+
+    const parsed = culori.parse(formattedColor);
+
+    if (!parsed) {
+      console.log("Unable to parse color:", color);
+      return null; // fallback
+    }
+
+    // Convert parsed color to RGB
+    const rgb = culori.converter('rgb')(parsed);
+
+    const r = Math.round(rgb.r * 255);
+    const g = Math.round(rgb.g * 255);
+    const b = Math.round(rgb.b * 255);
+
+    if (rgb.alpha !== undefined && rgb.alpha < 1) {
+      return `rgba(${r}, ${g}, ${b}, ${rgb.alpha.toFixed(2)})`;
+    }
+
+    return `rgb(${r}, ${g}, ${b})`;
+  } catch (err) {
+    console.log("Color conversion failed for:", color, err);
+    return null;
+  }
+}
 
 
 function errorHandler() {
@@ -62,9 +102,10 @@ function updateUrl(url) {
 
 function allColors(colors, backgroundColors) {
   const all = [...new Set([...colors, ...backgroundColors])];
+  const normalizedColors = all.map(color => color || "rgb(0, 0, 0)"); // fallback for nulls
   const container = document.getElementById("allColors");
   container.innerHTML = "<h2 class='text-lg font-bold mb-2'>All Colors</h2>";
-  renderColors(all, container);
+  renderColors(normalizedColors, container);
 }
 
 function displayColors(colors) {
@@ -83,10 +124,14 @@ function backColors(backgroundColors) {
     (color) => !textColors.includes(formatColor(color))
   );
 
+  const normalizedColors = filteredBackgrounds.map(color => color || "rgb(0, 0, 0)"); // fallback for nulls
+
+  console.log("Filtered Background Colors:", normalizedColors);
+
   const container = document.getElementById("backcolors");
   container.innerHTML =
     "<h2 class='text-lg font-bold mb-2'>Background Colors</h2>";
-  renderColors(filteredBackgrounds, container);
+  renderColors(normalizedColors, container);
 }
 
 function renderColors(colors, container) {
