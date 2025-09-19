@@ -124,7 +124,9 @@ function backColors(backgroundColors) {
     (color) => !textColors.includes(formatColor(color))
   );
 
-  const normalizedColors = filteredBackgrounds.map(color => color || "rgb(0, 0, 0)"); // fallback for nulls
+const normalizedColors = [...new Set(
+  filteredBackgrounds.map(color => color || "rgb(0, 0, 0)")
+)];
 
   console.log("Filtered Background Colors:", normalizedColors);
 
